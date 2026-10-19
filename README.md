@@ -13,6 +13,11 @@
 9. [How Many Vowels?](https://edabit.com/challenge/p88k8yHRPTMPt4bBo) - how_many_vowels.py
 10. [Calculating Damage](https://edabit.com/challenge/HSHHkdRYXfgfZSqri) - calc_damage.py
 
+---
+## Recources
+
+- [Online Python Compiler and Debugger](https://www.onlinegdb.com/online_python_interpreter)
+
 ----
 
 ## Submission Instructions
