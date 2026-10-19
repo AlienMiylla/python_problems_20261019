@@ -1,25 +1,5 @@
 # Python Coding Problems — October 19, 2026
 
-## Coding Challenges
-
-1. [Adding Numbers](https://edabit.com/challenge/2RtztnzMDdyAj2MD3) - adding_numbers.py
-2. [List of Multiples](https://edabit.com/challenge/BuwHwPvt92yw574zB) - list_of_multiples.py
-3. [FizzBuzz](https://edabit.com/challenge/WXqH9qvvGkmx4dMvp) - fizz_buzz.py
-4. [Basic Calculator](https://edabit.com/challenge/ZdnwC3PsXPQTdTiKf) - basic_calculator.py
-5. [Get the Area of a Country](https://edabit.com/challenge/Cjtm4CpLzHDerQMfX) - country_area.py
-6. [Find the Discount](https://edabit.com/challenge/cXnkmRdxqJrwdsP4n) - find_the_discount.py
-7. [Calculate the Profit](https://edabit.com/challenge/YfoKQWNeYETb9PYpw) - calc_the_profit.py
-8. [Circle or Square](https://edabit.com/challenge/4me7LifXBwj5rhL4n) - circle_or_square.py
-9. [How Many Vowels?](https://edabit.com/challenge/p88k8yHRPTMPt4bBo) - how_many_vowels.py
-10. [Calculating Damage](https://edabit.com/challenge/HSHHkdRYXfgfZSqri) - calc_damage.py
-
----
-## Recources
-
-- [Online Python Compiler and Debugger](https://www.onlinegdb.com/online_python_interpreter)
-
-----
-
 ## Submission Instructions
 
 Complete the Python challenges linked below. Each challenge has a corresponding .py file already created in this repository.
@@ -60,3 +40,23 @@ Once you’ve finished your work:
 Your pull request is your assignment submission. **Do not merge or close it**.
 
 If you need to make corrections, edit and commit the files in your fork. Your pull request will update automatically.
+
+---
+## Recources
+
+- [Online Python Compiler and Debugger](https://www.onlinegdb.com/online_python_interpreter)
+
+----
+
+## Coding Challenges
+
+1. [Adding Numbers](https://edabit.com/challenge/2RtztnzMDdyAj2MD3) - adding_numbers.py
+2. [List of Multiples](https://edabit.com/challenge/BuwHwPvt92yw574zB) - list_of_multiples.py
+3. [FizzBuzz](https://edabit.com/challenge/WXqH9qvvGkmx4dMvp) - fizz_buzz.py
+4. [Basic Calculator](https://edabit.com/challenge/ZdnwC3PsXPQTdTiKf) - basic_calculator.py
+5. [Get the Area of a Country](https://edabit.com/challenge/Cjtm4CpLzHDerQMfX) - country_area.py
+6. [Find the Discount](https://edabit.com/challenge/cXnkmRdxqJrwdsP4n) - find_the_discount.py
+7. [Calculate the Profit](https://edabit.com/challenge/YfoKQWNeYETb9PYpw) - calc_the_profit.py
+8. [Circle or Square](https://edabit.com/challenge/4me7LifXBwj5rhL4n) - circle_or_square.py
+9. [How Many Vowels?](https://edabit.com/challenge/p88k8yHRPTMPt4bBo) - how_many_vowels.py
+10. [Calculating Damage](https://edabit.com/challenge/HSHHkdRYXfgfZSqri) - calc_damage.py
