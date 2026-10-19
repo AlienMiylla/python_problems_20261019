@@ -13,6 +13,8 @@
 9. [How Many Vowels?](https://edabit.com/challenge/p88k8yHRPTMPt4bBo) - how_many_vowels.py
 10. [Calculating Damage](https://edabit.com/challenge/HSHHkdRYXfgfZSqri) - calc_damage.py
 
+----
+
 ## Submission Instructions
 
 Complete the Python challenges linked below. Each challenge has a corresponding .py file already created in this repository.
@@ -53,7 +55,3 @@ Once you’ve finished your work:
 Your pull request is your assignment submission. **Do not merge or close it**.
 
 If you need to make corrections, edit and commit the files in your fork. Your pull request will update automatically.
-
-⸻
-
-
