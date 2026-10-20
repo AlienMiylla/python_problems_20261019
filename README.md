@@ -36,7 +36,7 @@ Once you’ve finished your work:
 4. Make sure the base branch and compare branch are both main.
 5. Click **Create pull request**.
 
-Your pull request is your assignment submission. **Do not merge or close it**.
+<!--  Your pull request is your assignment submission. **Do not merge or close it**. -->
 
 <!-- If you need to make corrections, edit and commit the files in your fork. Your pull request will update automatically. -->
 
