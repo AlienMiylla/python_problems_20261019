@@ -1,1 +1,2 @@
-
+def damage(damage, speed, time):
+  ...
