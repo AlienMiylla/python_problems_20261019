@@ -45,4 +45,16 @@ jobs:
 
       - name: Display scores for submitted problems
         if: always()
+        env:
+          GRADE_PR_NUMBER: ${{ github.event.pull_request.number }}
+          GRADE_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: python grader/grading_report.py results.xml grading_selection.json
+
+      - name: Save grading report for PR feedback bot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-grading-feedback
+          path: grading-feedback/
+          if-no-files-found: ignore
+          retention-days: 30
