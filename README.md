@@ -34,12 +34,11 @@ Once you’ve finished your work:
 2. Click **Contribute → Open pull request** (or **Compare & pull request** if displayed).
 3. Confirm that the pull request is going from your repository to mswhitby/python_problems_20261019.
 4. Make sure the base branch and compare branch are both main.
-5. Title your pull request: [First Name] [Last Name] - Python Problems 10/19
-6. Click 88Create pull request**.
+5. Click **Create pull request**.
 
 Your pull request is your assignment submission. **Do not merge or close it**.
 
-If you need to make corrections, edit and commit the files in your fork. Your pull request will update automatically.
+<!-- If you need to make corrections, edit and commit the files in your fork. Your pull request will update automatically. -->
 
 ---
 ## Recources
