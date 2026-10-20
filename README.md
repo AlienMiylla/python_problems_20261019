@@ -1,5 +1,7 @@
 # Python Coding Problems — October 19, 2026
 
+**[View the Challenge Leaderboard](LEADERBOARD.md)**
+
 ## Submission Instructions
 
 Complete the Python challenges linked below. Each challenge has a corresponding .py file already created in this repository.
