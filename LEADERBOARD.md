@@ -4,7 +4,6 @@
 
 *Last updated: October 20, 2026 at 18:39 UTC*
 
-The leaderboard updates as pull requests are automatically graded.
 Each problem is worth 10 points, for a possible total of **100 points**.
 Unattempted problems contribute 0 points. The latest graded score for
 each problem is used, even across multiple pull requests.
@@ -13,9 +12,6 @@ each problem is used, even across multiple pull requests.
 |---:|---|---:|---:|---:|
 | 1 | `mtully-oss` | 10/10 | 10/10 | 100.00/100 |
 
-**Solved** = earned all 10 points for that problem.
-**Attempted** = a problem with at least one recorded grade.
+- **Solved** = earned all 10 points for that problem.
+- **Attempted** = a problem with at least one recorded grade.
 
-Test pull requests titled DO NOT MERGE are excluded.
-Usernames are displayed without links.
-This is an informal coding-challenge leaderboard, not an official gradebook.
