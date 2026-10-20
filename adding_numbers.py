@@ -1,1 +1,8 @@
+def add(n1, n2):
+  # Casting: https://www.w3schools.com/python/python_casting.asp
+  n1 = int(n1)
+  n2 = int(n2)
 
+  ...
+  
+  return n1 + n2
