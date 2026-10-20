@@ -4,7 +4,9 @@ Runs only in the privileged, serial workflow_run job after grading feedback is p
 The output contains GitHub usernames as plain text, never profile hyperlinks.
 """
 import base64
-from datetime import datetime, timezone
+import re
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from urllib.error import HTTPError
 
 from publish_grades import ASSIGNMENTS, BOT_USER, all_pages, api, read_record
@@ -72,21 +74,25 @@ def collect_ranking():
     return rows
 
 
-def markdown_for(rows):
-    updated = datetime.now(timezone.utc).strftime("%B %d, %Y at %H:%M UTC")
-    lines = [
-        "# Python Coding Challenge Leaderboard",
-        "",
-        "**Week of October 19, 2026**",
-        "",
-        f"*Last updated: {updated}*",
-        "",
-        "The leaderboard updates as pull requests are automatically graded.",
-        "Each problem is worth 10 points, for a possible total of **100 points**.",
-        "Unattempted problems contribute 0 points. The latest graded score for",
-        "each problem is used, even across multiple pull requests.",
-        "",
-        "| Rank | GitHub username | Solved | Attempted | Total points |",
+TABLE_HEADING = "| Rank | GitHub username | Solved | Attempted | Total points |"
+
+
+def update_leaderboard_text(original, rows):
+    """Replace only leaderboard rows and the update time; keep teacher's text."""
+    lines = original.splitlines(keepends=True)
+    header_index = next(
+        (i for i, line in enumerate(lines) if line.strip() == TABLE_HEADING),
+        None,
+    )
+    if header_index is None:
+        raise ValueError("Leaderboard table is missing; refusing to overwrite custom content.")
+
+    end = header_index + 1
+    while end < len(lines) and lines[end].strip().startswith("|"):
+        end += 1
+
+    table = [
+        TABLE_HEADING,
         "|---:|---|---:|---:|---:|",
     ]
     previous_points = None
@@ -96,49 +102,43 @@ def markdown_for(rows):
             rank = index
             previous_points = row["points"]
         username = row["username"]
-        # GitHub usernames are limited to letters, numbers and hyphens.
-        # Keep them as plain code text so they are not linked.
-        lines.append(
+        # Plain-text usernames only; no GitHub profile links.
+        table.append(
             f"| {rank} | " + chr(96) + username + chr(96) +
             f" | {row['solved']}/10 | {row['attempted']}/10 | {row['points']:.2f}/100 |"
         )
     if not rows:
-        lines.append("| — | No graded student submissions yet | — | — | — |")
-    lines += [
-        "",
-        "**Solved** = earned all 10 points for that problem.",
-        "**Attempted** = a problem with at least one recorded grade.",
-        "",
-        "Test pull requests titled DO NOT MERGE are excluded.",
-        "Usernames are displayed without links.",
-        "This is an informal coding-challenge leaderboard, not an official gradebook.",
-        "",
-    ]
-    return "\n".join(lines)
+        table.append("| — | No graded student submissions yet | — | — | — |")
+
+    updated = "".join(lines[:header_index]) + "\n".join(table) + "\n" + "".join(lines[end:])
+    central = datetime.now(ZoneInfo("America/Chicago"))
+    timestamp = central.strftime("%B %d, %Y at %H:%M CT")
+    updated = re.sub(
+        r"(?m)^\*Last updated:[^\n]*\*$",
+        f"*Last updated: {timestamp}*",
+        updated,
+        count=1,
+    )
+    return updated
 
 
-def save_leaderboard(markdown):
+def save_leaderboard(rows):
     endpoint = f"/contents/{FILENAME}"
-    existing_sha = None
-    try:
-        current = api("GET", endpoint + "?ref=main")
-        existing_sha = current["sha"]
-        old = base64.b64decode(current["content"]).decode("utf-8")
-        if old == markdown:
-            print("Leaderboard already matches scores. No commit needed.")
-            return
-    except HTTPError as exc:
-        if exc.code != 404:
-            raise
+    current = api("GET", endpoint + "?ref=main")
+    existing_sha = current["sha"]
+    old = base64.b64decode(current["content"]).decode("utf-8")
+    markdown = update_leaderboard_text(old, rows)
+
+    if old == markdown:
+        print("Leaderboard already matches scores. No commit needed.")
+        return
 
     payload = {
         "message": "Update Python challenge leaderboard",
         "content": base64.b64encode(markdown.encode("utf-8")).decode("ascii"),
         "branch": "main",
+        "sha": existing_sha,
     }
-    if existing_sha is not None:
-        payload["sha"] = existing_sha
-
     response = api("PUT", endpoint, payload)
     print("Updated leaderboard:", response["content"]["html_url"])
 
@@ -146,7 +146,7 @@ def save_leaderboard(markdown):
 def main():
     rows = collect_ranking()
     print(f"Updating leaderboard for {len(rows)} graded GitHub usernames.")
-    save_leaderboard(markdown_for(rows))
+    save_leaderboard(rows)
 
 
 if __name__ == "__main__":

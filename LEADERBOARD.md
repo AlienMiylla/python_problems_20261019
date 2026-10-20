@@ -2,7 +2,7 @@
 
 **Week of October 19, 2026**
 
-*Last updated: October 20, 2026 at 18:39 UTC*
+*Last updated: October 20, 2026 at 13:39 CT*
 
 Each problem is worth 10 points, for a possible total of **100 points**.
 Unattempted problems contribute 0 points. The latest graded score for
