@@ -1,1 +1,2 @@
-
+def dis(price, discount):
+  ...
