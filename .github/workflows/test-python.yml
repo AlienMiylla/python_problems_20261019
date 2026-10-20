@@ -1,0 +1,48 @@
+name: Grade Python Pull Request
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  grade:
+    name: Grade Python Solutions
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+
+    steps:
+      - name: Check out student PR code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          path: student
+
+      - name: Check out instructor tests branch
+        uses: actions/checkout@v4
+        with:
+          ref: tests
+          persist-credentials: false
+          path: grader
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install grading dependencies
+        run: python -m pip install --disable-pip-version-check pytest pytest-timeout
+
+      - name: Run Edabit tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}/student
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python -m pytest grader/tests -v --timeout=5 --timeout-method=signal --junitxml=results.xml
+
+      - name: Show problem-by-problem grading summary
+        if: always()
+        run: python grader/grading_report.py results.xml
