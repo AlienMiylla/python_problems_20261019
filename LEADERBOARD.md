@@ -15,3 +15,5 @@ each problem is used, even across multiple pull requests.
 - **Solved** = earned all 10 points for that problem.
 - **Attempted** = a problem with at least one recorded grade.
 
+This is an informal coding-challenge leaderboard, not an official gradebook.
+
