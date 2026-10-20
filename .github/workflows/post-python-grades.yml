@@ -1,0 +1,37 @@
+name: Post Python Grades to Pull Request
+
+on:
+  workflow_run:
+    workflows: ["Grade Python Pull Request"]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: write
+
+jobs:
+  post-feedback:
+    if: ${{ github.event.workflow_run.event == 'pull_request' }}
+    name: Publish cumulative grading feedback
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out trusted reporting script from main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Download results from unprivileged grading run
+        uses: actions/download-artifact@v4
+        with:
+          name: python-grading-feedback
+          path: grade-download
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate results and update PR conversation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .github/scripts/publish_grades.py
