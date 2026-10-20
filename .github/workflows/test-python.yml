@@ -10,18 +10,19 @@ permissions:
 
 jobs:
   grade:
-    name: Grade Python Solutions
+    name: Grade Submitted Python Problems
     runs-on: ubuntu-latest
     timeout-minutes: 6
 
     steps:
-      - name: Check out student PR code
+      - name: Check out submitted PR code
         uses: actions/checkout@v4
         with:
           persist-credentials: false
+          fetch-depth: 2
           path: student
 
-      - name: Check out instructor tests branch
+      - name: Check out instructor test cases
         uses: actions/checkout@v4
         with:
           ref: tests
@@ -33,16 +34,15 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install grading dependencies
+      - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest pytest-timeout
 
-      - name: Run Edabit tests
+      - name: Grade only changed assignment files
         env:
           PYTHONPATH: ${{ github.workspace }}/student
           PYTHONDONTWRITEBYTECODE: '1'
-        run: |
-          python -m pytest grader/tests -v --timeout=5 --timeout-method=signal --junitxml=results.xml
+        run: python grader/run_changed_tests.py student
 
-      - name: Show problem-by-problem grading summary
+      - name: Display scores for submitted problems
         if: always()
-        run: python grader/grading_report.py results.xml
+        run: python grader/grading_report.py results.xml grading_selection.json
