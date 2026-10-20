@@ -1,1 +1,2 @@
-
+def area_of_country(name, area):
+  ...
