@@ -5,6 +5,10 @@ on:
     workflows: ["Grade Python Pull Request"]
     types: [completed]
 
+concurrency:
+  group: cumulative-python-feedback
+  cancel-in-progress: false
+
 permissions:
   contents: read
   actions: read
